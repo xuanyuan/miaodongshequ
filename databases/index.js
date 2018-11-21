@@ -1,6 +1,7 @@
 const mysql = require('mysql');
-const databaseConfig = require('./database.config'); //引入数据库配置模块中的数据
+const databaseConfig = require('./config'); //引入数据库配置模块中的数据
 
+// https: //www.cnblogs.com/zjx2011/p/6380579.html#performing-query
 //向外暴露方法
 module.exports = {
   query(sql, params) {
@@ -16,7 +17,6 @@ module.exports = {
             //开始数据操作
             console.log(sql, params);
             connection.query(sql, params, (err, results, fields) => {
-
               if (err) {
                 console.log('数据操作失败');
                 throw err;

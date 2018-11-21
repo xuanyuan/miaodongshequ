@@ -1,5 +1,5 @@
 // 激活邮件模板
-exports.activeAccount = function (url) {
+exports.subscribe = function (url) {
   return `
     <h3>欢迎订阅每日编程</h3>
     <a href="${url}">点击激活账户</a>
