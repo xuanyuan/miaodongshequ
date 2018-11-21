@@ -1,0 +1,98 @@
+
+324-王阅军 2018/10/19 10:15:17
+你们的会不会测安全
+
+324-王阅军 2018/10/19 10:15:44
+你有遇到过DOM的跨站点脚本编制
+
+324-王阅军 2018/10/19 10:15:55
+这样的安全问题吗？
+
+324-王阅军 2018/10/19 10:16:29
+一般
+
+请分析并加强客户端 (JavaScript) 代码。
+
+清理攻击者所能影响的输入源。
+
+例如：- document.URL - document.URLUnencoded - document.location（及其许多属性） - document.referrer - window.location（及其许多属性）
+
+应特别注意修改了 DOM 的场景。
+
+例如：- 撰写原始 HTML，例如： * document.write(...)
+
+
+ * document.writeln(...) 
+
+* document.body.innerHtml=... 
+
+
+- 直接修改 DOM（包括 DHTML 事件），例如： * document.forms[0].action=...（以及各种其他集合） * document.attachEvent(...)
+
+
+ * document.create...(...) 
+
+* document.execCommand(...) 
+
+* document.body. ...（通过主体对象访问 DOM） * window.attachEvent(...)
+
+
+
+- 替换文档 URL，例如：
+
+* document.location=...（以及指派给位置的 href、主机和主机名）
+
+* document.location.hostname=...
+
+ * document.location.replace(...) 
+
+* document.location.assign(...) 
+
+* document.URL=...
+
+ * window.navigate(...) 
+
+
+- 打开/修改窗口，例如：
+
+* document.open(...) 
+
+* window.open(...) 
+
+* window.location.href=... （以及指派给位置的 href、主机和主机名） - 直接执行脚本，例如： * eval(...)
+
+
+ * window.execScript(...) 
+
+* window.setInterval(...) 
+
+* window.setTimeout(...) 
+
+
+考虑以下易受攻击的脚本：
+  <SCRIPT>
+    var position=document.URL.indexOf("age=")+4;
+    document.write(document.URL.substring(position,document.URL.length));
+  </SCRIPT>
+
+
+ 在该示例中，age 参数并未清理，因此，脚本有可能遭到“DOM 跨站点脚本编制”攻击。
+
+这份脚本的安全版本如下：
+  <SCRIPT>
+    var position=document.URL.indexOf("age=")+4;
+    var age=document.URL.substring(position,document.URL.length);
+    if (age.match(/^[0-9]*$/))
+    {
+          document.write(age);
+    }
+    else
+    {
+          window.alert("Illegal input.\nAge parameter should be composed from numerical characters only.");
+    }
+  </SCRIPT>
+
+
+ 在这个版本中，会验证 age 参数，确保未包含危险字符。另请参阅 OWASP 提供的“DOM based XSS Prevention Cheat Sheet”：
+http://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet
+，以获取更多信息。

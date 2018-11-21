@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+}
+
+#wrapper {
+  width: 960px;
+  margin: 0 auto;
+  border: 1px solid;
+}
+
+article {
+  background: #ffed53;
+  float: left;
+  width: 600px;
+  /* padding: 10px 20px; */
+}
+article .inner {
+  padding: 10px 20px;
+  border: 2px solid red;
+}
+
+nav {
+  width: 150px;
+  float: left;
+}
+
+nav li {
+  list-style-type: none;
+}
+
+aside {
+  width: 210px;
+  float: left;
+  background: #3f7ccf;
+}
+
+header {
+  background: #f00;
+}
+
+footer {
+  background: #000;
+  clear: both;
+}

@@ -1,0 +1,5 @@
+# 在.gitingore 文件中，遵循相应的语法，在每一行指定一个忽略规则
+/node_modules
+/databases/database.config.js
+/helper/config.js
+.vscode

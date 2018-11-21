@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>每日编程技巧</title>
+  <link rel="stylesheet" href="./styles/default.css">
+</head>
+
+<body>
+  <div id="app" class="app">
+    <div class="app-container">
+      <div class="nav">
+        <div class="nav-container">
+          <div class="logo">
+            <a href="/" class="icon">
+            <img src="./images/logo.png"></a>
+            <a href="/">
+              <div class="text">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">
+                    每日编程技巧
+                  </font>
+                </font>
+              </div>
+            </a></div>
+          <ul class="links">
+            <li><a href="/blog.html">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">博客</font>
+                </font>
+              </a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="lander page">
+        <div class="hero">
+          <a id="subscribe" class="anchor"></a>
+          <div class="modal-container" type="success" style="display: none;">
+            <div class="modal-content">
+              <div class="subscribe-modal"><strong>Success!</strong> <br> <br>
+                <p>
+                  Just one thing: to start receiving problems, we need to verify your email address.
+                </p>
+                <p>
+                  Could you <b>please check your email for a verification link</b>? Thanks!
+                </p>
+                <p>
+                  Thanks for subscribing! We hope you enjoy our daily programming problems.
+                </p> <button class="green">I verified my email address!</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-container" type="error" style="display: none;">
+            <div class="modal-content">
+              <div class="subscribe-modal"><strong>Error!</strong> <br> <br>
+                <p></p>
+                <!---->
+                <p>
+                  Otherwise, please contact us at <a href="mailto:founders@dailycodingproblem.com?Subject=Hello!"
+                    target="_top">founders@dailycodingproblem.com</a>
+                  and let us know what's going on.
+                </p>
+                <!----> <button class="green">Close</button>
+              </div>
+            </div>
+          </div>
+          <header>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">
+                订阅我们
+              </font>
+            </font>
+          </header>
+          <div class="cta-container">
+            <form class="email-input">
+              <input type="text" placeholder="输入您的邮箱..." required="required" name="email"
+                data-vv-validate-on="none" autocomplete="off" class="email" data-vv-id="1" aria-required="true"
+                aria-invalid="false">
+                <button class="cta dark">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">
+                    订阅每日编程技巧
+                  </font>
+                </font>
+              </button>
+            </form>
+            <p class="disclaimer">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">
+                  没有垃圾邮件。</font>
+                <font style="vertical-align: inherit;">轻松取消订阅。
+                </font>
+              </font>
+            </p>
+          </div>
+        </div>
+        <div class="sample-questions">
+          <header>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">
+                编程技巧实例
+              </font>
+            </font>
+          </header>
+          <div class="question">
+           
+            <div class="question-container">
+              <div class="question-content">
+                <p>
+                  arrayMax 返回数组中的最大值。
+                  <br>
+                  arrayMin 返回数组中的最小值。
+                </p>
+                <p>
+                  将Math.max()与扩展运算符 (...) 结合使用以获取数组中的最大值。
+                  <br>
+                  将Math.min()与扩展运算符 (...) 结合使用以获取数组中的最小值。
+                </p>
+                <p>
+                const arrayMax = arr => Math.max(...arr);
+                // arrayMax([10, 1, 5]) -> 10
+                <br>
+                const arrayMin = arr => Math.min(...arr);
+                // arrayMin([10, 1, 5]) -> 1
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="enter-email">
+          <a href="#subscribe"><button class="cta mobile">
+            <strong>输入邮箱</strong> 订阅JavaScript每日编程技巧
+            </button></a></div> <br> <br> <br>
+      </div>
+      <footer class="footer">
+        <div class="copyright">
+          <ul>
+            <li><a href="/" class="copyright">© 秒懂社区 2018</a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>
