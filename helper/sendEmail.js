@@ -8,10 +8,7 @@ const transporter = nodemailer.createTransport({
   host: "smtp.163.com",
   secureConnection: true,
   port: 465,
-  auth: {
-    user: config.user,
-    pass: config.pass
-  }
+  auth: config
 });
 module.exports.send = (mailOptions) => {
   return new Promise((resolve, reject) => {

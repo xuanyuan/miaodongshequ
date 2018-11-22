@@ -2,7 +2,8 @@ const {
   isEmail,
   stringToHex,
   hexToString,
-  md5
+  md5,
+  getIPAdress
 } = require('../helper/utils');
 const expect = require('chai').expect;
 const assert = require('chai').assert;
@@ -42,5 +43,11 @@ describe('hexToString()', function () {
 describe('md5()', function () {
   it('z_dianjun@163.com', function () {
     assert.equal(md5('z_dianjun@163.com'), 'a2758e31df7c2a74dda56b8959749587');
+  })
+})
+
+describe('getIPAdress()', function () {
+  it('getIPAdress', function () {
+    assert.equal(getIPAdress(), '192.168.22.132');
   })
 })
