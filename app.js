@@ -4,10 +4,12 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 const routes = require('./routes');
+const history = require('connect-history-api-fallback');
 
 app.set('port', process.env.PORT || 8000);
 
-app.use(logger('dev')); 
+app.use(logger('dev'));
+app.use(history());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
