@@ -1,6 +1,6 @@
 const db = require('../databases');
 const dayjs = require('dayjs');
-
+const FORMAT_STR = 'YYYY-MM-DD HH:mm:ss';
 //TODO 这块代码有点乱，要抽象重写，考虑灵活性 
 
 exports.getArticles = function (table, params = []) {
@@ -21,18 +21,24 @@ exports.insertUser = function (email, active_code) {
   return db.query(`
   insert into user (state, active_code, exptime, email, is_use) 
   values(?, ?, ?, ?, ?)`, [
-    0, active_code, dayjs().add(10, 'minute').format('YYYY-MM-DD HH:mm:ss'), email, 0
+    0, active_code, dayjs().add(10, 'minute').format(FORMAT_STR), email, 0
   ])
 }
 
-// update user information
+/**
+ * update user information
+ * for example:
+ * UPDATE Person SET Address = 'Zhongshan 23', City = 'Nanjing' WHERE LastName = 'Wilson'
+ */
 exports.updateUser = function (userObj) {
-  // UPDATE Person SET Address = 'Zhongshan 23', City = 'Nanjing' WHERE LastName = 'Wilson'
-  let sqlStr = 'update user set ';
-  userObj.state && (sqlStr += 'state = ' + userObj.state);
-  userObj.active_code && (sqlStr += ', active_code = ' + userObj.active_code);
-  userObj.exptime && (sqlStr += ', exptime = "' + dayjs().add(10, 'minute').format('YYYY-MM-DD HH:mm:ss') + '"');
-  userObj.is_use && (sqlStr += ', is_use = ' + userObj.is_use);
-  sqlStr += ' where `email` = ? ';
+  let sqlStr = 'update user set ',
+    params = [];
+
+  userObj.state && params.push('state = ' + userObj.state);
+  userObj.active_code && params.push('active_code = ' + userObj.active_code);
+  userObj.exptime && params.push('exptime = "' + dayjs().add(10, 'minute').format(FORMAT_STR) + '"');
+  userObj.is_use && params.push('is_use = ' + userObj.is_use);
+
+  sqlStr = sqlStr.concat(params.join(", "), ' where `email` = ? ');
   return db.query(sqlStr, [userObj.email]);
 }
