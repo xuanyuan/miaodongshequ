@@ -27,7 +27,7 @@ module.exports = {
 * 项目运行
 ```bash
 npm install 
-node app.js
+node miaodongshequ.js
 ```
 
 # change log

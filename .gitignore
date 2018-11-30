@@ -3,3 +3,5 @@
 /databases/config.js
 /helper/config.js
 .vscode
+.idea
+credentials.js
