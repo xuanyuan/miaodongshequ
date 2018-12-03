@@ -147,6 +147,10 @@ admin.get('/users', function (req, res) {
 // routes(express.Router());
 
 app.use('/', routes);
+const subscripterController = require('./controller/subscriber');
+const route = express.Router();
+subscripterController.registerRoutes(route);
+app.use(route);
 
 // 404 catch-all handler (middleware)
 app.use(function (req, res, next) {
