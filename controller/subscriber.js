@@ -2,8 +2,8 @@ const dayjs = require('dayjs'),
     validation = require('../lib/validation'),
     Utils = require('../lib/utils'),
     Email = require('../lib/email'),
-    Subscriber = require('../models/subscriber'),
-    credentials = ('../credentials');
+    Subscriber = require('../models/subscriber');
+const url = 'http://' + Utils.getIPAdress() + ':8000/api/subscriber/active?activeCode=';
 module.exports = {
     registerRoutes: function (route) {
         route.post('/api/subscriber/register', validation.checkEmail, this.processRegister);
@@ -21,7 +21,7 @@ module.exports = {
             created: dayjs().toDate()
         });
         Subscriber.findOne({email: email}).exec((error, subscriber) => {
-            if (error) res.json(500, {error: true, message: `db saved error ${error}`});
+            if (error) res.status(500).json({error: true, message: `db error ${error}`});
             if (subscriber) {
                 subscriber.activeCode = newSubscriber.activeCode;
                 subscriber.expireTime = newSubscriber.expireTime;
@@ -30,19 +30,17 @@ module.exports = {
                 subscriber = newSubscriber;
             }
             subscriber.save().then((newer) => {
-                Email(credentials).send(email, '每日编程')
+                Email.send(email, '每日编程', Utils.template(url + activeCode))
             }).catch(error => {
-                res.json(500, {error: true, message: `db saved error : ${error}`});
-            });
+                res.status(500).json({error: true, message: `db saved error : ${error}`});
+            }).then(res.json({error: false, message: '发送邮件成功！'}));
         });
 
     },
     processActive: (req, res, next) => {
         let activeCode = req.query.activeCode;
         Subscriber.findOne({activeCode: activeCode}).exec((error, subscriber) => {
-            if (error) reject(error);
-            resolve(subscriber);
-        }).then(subscriber => {
+            if (error) res.status(500).json({error: true, message: `db error ${error}`});
             if (!subscriber) {
                 return res.json({error: true, message: "Incorrect verificationToken!"});
             } else {
@@ -52,18 +50,16 @@ module.exports = {
                     return res.json({error: true, message: "VerificationToken already expire!"});
                 }
                 subscriber.isUsed = true;
-                subscriber.status = true;
+                subscriber.state = true;
                 subscriber.save().then(newer => {
                     res.json({
                         error: false,
                         message: "active user success"
                     });
                 }).catch(error => {
-                    res.json(500, {error: true, message: `db saved error ${error}`});
+                    res.status(500).json({error: true, message: `db saved error ${error}`});
                 });
             }
-        }).catch(error => {
-            res.json(500, {error: true, message: `db saved error ${error}`});
         });
     }
 };

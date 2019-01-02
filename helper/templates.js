@@ -8,7 +8,7 @@ exports.subscribe = function (url) {
     <br/>
     ${url}
     <br/>
-    如有疑问，请联系<a href="mailto:z_dianjun@163.com">z_dianjun@163.com</a>
+    如有疑问，请联系<a href="mailto:l_guangpeng@163.com">l_guangpeng@163.com</a>
   `
 }
 

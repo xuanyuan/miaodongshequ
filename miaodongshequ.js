@@ -93,12 +93,15 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(cookieParser(credentials.cookieSecret));
-//
-app.use(history());
-
-// 指定静态文件路径(比如样式表、图片等)
-// app.use(express.static(path.resolve(__dirname, 'public')));
-app.use(express.static(`${__dirname}/public`));
+//请求方式为GET（前端路由请求的当然要是GET）
+// 接受文件类型为text/html（即ajax请求中的dataType）
+// 与options.rewrites中提供的模式不匹配（即自定义规则中没写到的
+// 请求会转发到index.html
+// app.use(history({
+//     htmlAcceptHeaders: ['text/html']
+// }));
+// // 指定静态文件路径(比如样式表、图片等)
+// app.use(express.static(`${__dirname}/public`));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -147,15 +150,15 @@ admin.get('/users', function (req, res) {
 // routes(express.Router());
 
 app.use('/', routes);
-const subscripterController = require('./controller/subscriber');
+const subscriberController = require('./controller/subscriber');
 const route = express.Router();
-subscripterController.registerRoutes(route);
+subscriberController.registerRoutes(route);
 app.use(route);
 
 // 404 catch-all handler (middleware)
 app.use(function (req, res, next) {
     res.status(404);
-    res.json();
+    res.json("Not Found");
 });
 
 // 500 error handler (middleware)
