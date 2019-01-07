@@ -42,3 +42,12 @@ exports.updateUser = function (userObj) {
   sqlStr = sqlStr.concat(params.join(", "), ' where `email` = ? ');
   return db.query(sqlStr, [userObj.email]);
 }
+
+// 插入一条订餐记录
+exports.insertOrder = function (name, menus, food, place, meatcount, vegetablecount, cost, ordertime) {
+  return db.query(`
+  insert into orders ( username, menus, food, place, meatcount, vegetablecount, cost, ordertime)
+  values(?, ?, ?, ?, ?, ?, ?, ?)`, [
+    name, menus, food, place, meatcount, vegetablecount, cost, ordertime
+  ])
+}

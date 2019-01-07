@@ -6,7 +6,7 @@ const app = express();
 const routes = require('./routes');
 const history = require('connect-history-api-fallback');
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8080);
 
 app.use(logger('dev'));
 app.use(history());
