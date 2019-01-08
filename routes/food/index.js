@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const api = require('../../api');
-const dayjs = require('dayjs');
-const FORMAT_STR = 'YYYY-MM-DD HH:mm:ss';
+const express = require('express')
+const router = express.Router()
+const api = require('../../api')
+const dayjs = require('dayjs')
+const FORMAT_STR = 'YYYY-MM-DD HH:mm:ss'
 
 const {
   getIPAdress
-} = require('../../helper').utils;
+} = require('../../helper').utils
 
-
-router.route('/order')
+router
+  .route('/order')
   .post((req, res) => {
-    let body = req.body;
+    const body = req.body
 
     async function order(body) {
       try {
-        const orderTime = dayjs().format(FORMAT_STR);
+        const orderTime = dayjs().format(FORMAT_STR)
         let {
           name,
           menus,
@@ -24,23 +24,32 @@ router.route('/order')
           meatCount,
           vegetableCount,
           cost
-        } = body;
-        let insertUserResult = await api.insertOrder(name, menus, food, place, meatCount, vegetableCount, cost, orderTime);
+        } = body
+        let insertUserResult = await api.insertOrder(
+          name,
+          menus,
+          food,
+          place,
+          meatCount,
+          vegetableCount,
+          cost,
+          orderTime
+        )
         res.json({
           error: false,
           message: '订餐成功'
-        });
+        })
       } catch (error) {
         res.json({
           error: true,
-          message: 'order failed.',
-        });
+          message: 'order failed.'
+        })
       }
     }
-    order(body);
+    order(body)
   })
   .get((req, res) => {
-    console.log('/order get method.');
+    console.log('/order get method.')
   })
 
-module.exports = exports = router;
+module.exports = exports = router
