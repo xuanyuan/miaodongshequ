@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../../api');
+const dayjs = require('dayjs');
+const FORMAT_STR = 'YYYY-MM-DD HH:mm:ss';
+
 const {
   getIPAdress
 } = require('../../helper').utils;
@@ -12,8 +15,7 @@ router.route('/order')
 
     async function order(body) {
       try {
-        const date = new Date();
-        const orderTime = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        const orderTime = dayjs().format(FORMAT_STR);
         let {
           name,
           menus,
