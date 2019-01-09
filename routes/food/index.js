@@ -8,8 +8,7 @@ const {
   getIPAdress
 } = require('../../helper').utils
 
-router
-  .route('/order')
+router.route('/order')
   .post((req, res) => {
     const body = req.body
 
@@ -49,7 +48,28 @@ router
     order(body)
   })
   .get((req, res) => {
-    console.log('/order get method.')
+    (async function order(body) {
+      try {
+        let todaymenu = await api.todaymenu();
+        let consumers = await api.consumer();
+
+
+        if (todaymenu.length === 1) {
+          res.json({
+            menu: todaymenu[0],
+            consumer: consumers.map(v => v.name)
+          })
+        } else {
+          throw new Error("今天的菜谱还没出来，请耐心等待");
+        }
+      } catch (error) {
+        res.json({
+          error: true,
+          message: error.message
+        })
+      }
+    })();
+
   })
 
 module.exports = exports = router

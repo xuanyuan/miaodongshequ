@@ -3,21 +3,21 @@ const dayjs = require('dayjs');
 const FORMAT_STR = 'YYYY-MM-DD HH:mm:ss';
 //TODO 这块代码有点乱，要抽象重写，考虑灵活性 
 
-exports.getArticles = function (table, params = []) {
+exports.getArticles = function(table, params = []) {
   return db.query('select * from ' + table + ' order by id desc limit 10', params);
 }
 
 // 查询数据库中该邮件信息
-exports.queryEmail = function (params) {
+exports.queryEmail = function(params) {
   return db.query('select * from `user` where `email` = ? ', [params]);
 }
 
-exports.queryActiveCode = function (params) {
+exports.queryActiveCode = function(params) {
   return db.query('select * from `user` where `active_code` = ? ', [params]);
 }
 
 // 插入一条用户记录
-exports.insertUser = function (email, active_code) {
+exports.insertUser = function(email, active_code) {
   return db.query(`
   insert into user (state, active_code, exptime, email, is_use) 
   values(?, ?, ?, ?, ?)`, [
@@ -30,7 +30,7 @@ exports.insertUser = function (email, active_code) {
  * for example:
  * UPDATE Person SET Address = 'Zhongshan 23', City = 'Nanjing' WHERE LastName = 'Wilson'
  */
-exports.updateUser = function (userObj) {
+exports.updateUser = function(userObj) {
   let sqlStr = 'update user set ',
     params = [];
 
@@ -44,10 +44,20 @@ exports.updateUser = function (userObj) {
 }
 
 // 插入一条订餐记录
-exports.insertOrder = function (name, menus, food, place, meatcount, vegetablecount, cost, ordertime) {
+exports.insertOrder = function(name, menus, food, place, meatcount, vegetablecount, cost, ordertime) {
   return db.query(`
   insert into orders ( username, menus, food, place, meatcount, vegetablecount, cost, ordertime)
   values(?, ?, ?, ?, ?, ?, ?, ?)`, [
     name, menus, food, place, meatcount, vegetablecount, cost, ordertime
   ])
+}
+
+// get 今日菜谱
+exports.todaymenu = function() {
+  return db.query(`select * from menus where to_days(menutime) = to_days(now());`);
+}
+
+// 顾客
+exports.consumer = function() {
+  return db.query(`select * from consumer;`);
 }
