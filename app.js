@@ -10,7 +10,7 @@ const history = require('connect-history-api-fallback');
 // 启用压缩，尽量在其他中间件前使用compression
 app.use(compression());
 
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 3000);
 
 app.use(logger('dev'));
 app.use(history());

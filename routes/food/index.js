@@ -47,12 +47,14 @@ router.route('/order')
     }
     order(body)
   })
-  .get((req, res) => {
-    (async function order(body) {
+  .get((req, res) => {})
+
+router.route('/menus')
+  .post((req, res) => {
+    (async function() {
       try {
         let todaymenu = await api.todaymenu();
         let consumers = await api.consumer();
-
 
         if (todaymenu.length === 1) {
           res.json({
@@ -69,7 +71,5 @@ router.route('/order')
         })
       }
     })();
-
   })
-
 module.exports = exports = router
