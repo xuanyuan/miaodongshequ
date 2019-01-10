@@ -52,12 +52,22 @@ exports.insertOrder = function(name, menus, food, place, meatcount, vegetablecou
   ])
 }
 
-// get 今日菜谱
+// 查询今日菜谱
 exports.todaymenu = function() {
   return db.query(`select * from menus where to_days(menutime) = to_days(now());`);
 }
 
-// 顾客
+// 查询顾客
 exports.consumer = function() {
   return db.query(`select * from consumer;`);
+}
+
+// 查询今日订单
+exports.todayorders = function() {
+  return db.query(`select * from orders where to_days(ordertime) = to_days(now());`);
+}
+
+// 买单
+exports.payorder = function(id) {
+  return db.query(`update orders set isPay = 1 where id = ?`, [id]);
 }

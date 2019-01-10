@@ -72,4 +72,39 @@ router.route('/menus')
       }
     })();
   })
+// 查询订单
+router.route('/orders')
+  .post((req, res) => {
+    (async function() {
+      try {
+        let orders = await api.todayorders();
+
+        res.json({
+          orders
+        })
+      } catch (error) {
+        res.json({
+          error: true,
+          message: error.message
+        })
+      }
+    })();
+  })
+
+router.route('/pay')
+  .post((req, res) => {
+    (async function() {
+      try {
+        let body = req.body;
+        let result = await api.payorder(body.id);
+        res.json(result);
+        console.log(result);
+      } catch (error) {
+        res.json({
+          error: true,
+          message: error.message
+        })
+      }
+    })();
+  })
 module.exports = exports = router
