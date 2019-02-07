@@ -1,4 +1,3 @@
-// 引入插件
 const nodemailer = require('nodemailer');
 const config = require('./config');
 
@@ -15,7 +14,7 @@ module.exports.send = (mailOptions) => {
     transporter.sendMail({
       from: 'www.miaodongshequ.com<z_dianjun@163.com>', // 发件人地址
       ...mailOptions
-    }, function (error, info) {
+    }, function(error, info) {
       if (error) {
         reject(error);
         console.log(error);
