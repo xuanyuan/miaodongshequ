@@ -23,7 +23,17 @@ router.route('/order')
           meatCount,
           vegetableCount,
           cost
-        } = body
+        } = body;
+
+        let orders = await api.todayorders();
+        console.log(orders);
+        if (orders.length) {
+          // 如果已经下过订单就报错
+          if (orders.map(v => v.username).includes(name)) {
+            throw new Error("您已下单，请勿重复下单");
+          }
+        }
+
         let insertUserResult = await api.insertOrder(
           name,
           menus,
@@ -38,10 +48,10 @@ router.route('/order')
           error: false,
           message: '订餐成功'
         })
-      } catch (error) {
+      } catch (err) {
         res.json({
           error: true,
-          message: 'order failed.'
+          message: err.message || 'order failed.'
         })
       }
     }
