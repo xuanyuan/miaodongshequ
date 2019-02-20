@@ -64,7 +64,7 @@ exports.consumer = function() {
 
 // 查询今日订单
 exports.todayorders = function() {
-  return db.query(`select * from orders where to_days(ordertime) = to_days(now());`);
+  return db.query(`select o.*, c.no from orders as o, consumer as c where o.username = c.\`name\` and to_days(o.ordertime) = to_days(now());`);
 }
 
 // 买单
